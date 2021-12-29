@@ -17,29 +17,37 @@ namespace Models
             Activity activity = dbContext.Activities.Find(id);
             if (activity == null)
             {
-                activity = new Activity(id, "idNotFound", DateTime.Now);
+                activity = new Activity(id, "idNotFound");
             }
             return activity;
         }
-        /*
-        // SOURCE: https://entityframeworkcore.com/knowledge-base/51939451/how-to-use-a-database-context-in-a-singleton-service-
-        private readonly IServiceScopeFactory scopeFactory;
 
-        public ActivityService(IServiceScopeFactory scopeFactory)
+        public List<Activity> getActivities()
         {
-            this.scopeFactory = scopeFactory;
+            return dbContext.Activities.ToList();
         }
-        public Activity getActivityFromId(int id)
+
+        public bool doesActivityWithIdExist(int id)
         {
-            Activity activity; //= new Activity(id, "test evenement", DateTime.Now);
-            using (var scope = scopeFactory.CreateScope())
-            {
-                var dbContext = scope.ServiceProvider.GetRequiredService<DbContext>();
+            return dbContext.Activities.Any(a => a.id == id);
+        }
 
-                activity = dbContext.Find<Activity>(id);
-            }
+        public List<Activity> getActivitiesWithTitle(string title)
+        {
+            var activities = dbContext.Activities.Where(a => a.title == title);
+            return activities.ToList();
+        }
 
-            return activity;
-        }*/
+        public List<Activity> getActivitiesOnDate(DateTime date)
+        {
+            var activities = dbContext.Activities.Where(a => a.dateTime.Date == date.Date);
+            return activities.ToList();
+        }
+
+        public List<Activity> getActivitiesOfGroup(string group)
+        {
+            var activities = dbContext.Activities.Where(a => a.group == group);
+            return activities.ToList();
+        }
     }
 }
