@@ -49,5 +49,27 @@ namespace Models
             var activities = dbContext.Activities.Where(a => a.group == group);
             return activities.ToList();
         }
+
+        // Add activities
+
+        public Activity addActivity(string title, string group, DateTime dateTime, string? description)
+        {
+            // TODO: only allow "kapoenen", "kawellen", "jonggivers", "givers", "jins, "leiding", "iedereen"
+            Activity a = new Activity(title, group, dateTime, description);
+            dbContext.Activities.Add(a);
+            dbContext.SaveChanges();
+            return a;
+        }
+
+        // Delete activities
+
+        public Activity deleteActivityFromId(int id)
+        {
+            Activity a = dbContext.Activities.Find(id);
+            dbContext.Activities.Remove(a);
+            dbContext.SaveChanges();
+            return a;
+        }
+
     }
 }

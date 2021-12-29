@@ -4,6 +4,8 @@ namespace Models
     [ServiceContract]
     public interface IActivityService
     {
+        // Get activities
+
         [OperationContract]
         public Activity getActivityFromId(int id);
 
@@ -21,5 +23,15 @@ namespace Models
 
         [OperationContract]
         public bool doesActivityWithIdExist(int id);
+
+        // Add activities
+
+        [OperationContract]
+        public Activity addActivity(string title, string group, DateTime dateTime, string? description);
+
+        // Delete activities
+
+        [OperationContract]
+        public Activity deleteActivityFromId(int id);
     }
 }

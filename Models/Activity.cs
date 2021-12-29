@@ -29,5 +29,12 @@ namespace Models
             this.title = title;
         }
 
+        public Activity(string title, string group, DateTime dateTime, string? description)
+        {
+            this.title = title;
+            this.group = group;
+            this.dateTime = dateTime;
+            this.description = description;
+        }
     }
 }
