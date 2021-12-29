@@ -14,7 +14,7 @@ use std::error::Error;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
-   let _client = db::get_db_client().await?;
+   let _result = db::list_collections();
    rocket::build()
    .mount(
         "/",

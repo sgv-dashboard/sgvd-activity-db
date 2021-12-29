@@ -2,33 +2,36 @@ version: '3'
 
 services:
   mongodb:
-    image : mongo
+    image: mongo
     container_name: mongodb
-    volumes: 
+    hostname: mongodb
+    volumes:
       - mongo-data:/data/db
     ports:
       - 27017:27017
+    networks:
+      - 'activity-db'
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=AonvXqCCLz3biaiBxaj2XvnFuik3TYcF
-    
-backend:
-  build:
-    context: '.'
-    dockerfile: './backend/Dockerfile'
-  depends_on:
-    - mongodb
-  environment:
-    - MONGODB_URI=mongodb://admin:AonvXqCCLz3biaiBxaj2XvnFuik3TYcF@localhost:27017
-    - ROCKET_ENV=dev
-    - ROCKET_TLS={certs="/path/to/certs.pem",key="/path/to/key.pem"}
-  ports:
-    - 8000:8000
-  networks:
-    - 'activity-db'
+  backend:
+    build:
+      context: './backend'
+      dockerfile: './Dockerfile'
+    container_name: backend
+    depends_on:
+      - mongodb
+    environment:
+      - MONGODB_URI=mongodb://admin:AonvXqCCLz3biaiBxaj2XvnFuik3TYcF@mongodb:27017
+      - ROCKET_ENV=dev
+    ports:
+      - 8000:8000
+    networks:
+      - 'activity-db'
 
 volumes:
   mongo-data:
 
+    null
 networks:
-  activity-db:
+  activity-db: null

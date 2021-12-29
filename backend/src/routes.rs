@@ -1,5 +1,6 @@
 //use rocket::tokio::time::{sleep, Duration};
 
+mod db;
 
 #[get("/activities")]
 pub async fn get_activities() -> &'static str {
@@ -9,6 +10,7 @@ pub async fn get_activities() -> &'static str {
 
 #[post("/activities")]
 pub async fn post_activities() -> &'static str {
+    db::add_activity().await;
     "Add activities"
     // TODO: Add activity
 }
