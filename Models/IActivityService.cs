@@ -27,7 +27,7 @@ namespace Models
         // Add activities
 
         [OperationContract]
-        public Activity addActivity(string title, string group, DateTime dateTime, string? description);
+        public Activity addActivity(Activity a);
 
         // Delete activities
 

@@ -48,10 +48,9 @@ namespace Models
 
         // Add activities
 
-        public Activity addActivity(string title, string group, DateTime dateTime, string? description)
+        public Activity addActivity(Activity a)
         {
-            // TODO: only allow "kapoenen", "kawellen", "jonggivers", "givers", "jins, "leiding", "iedereen"
-            Activity a = new Activity(title, group, dateTime, description);
+            // TODO: only allow group values: "kapoenen", "kawellen", "jonggivers", "givers", "jins, "leiding", "iedereen"
             dbContext.Activities.Add(a);
             dbContext.SaveChanges();
             return a;

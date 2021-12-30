@@ -20,6 +20,9 @@ namespace Models
         public DateTime dateTime { get; set; }
 
         [DataMember]
+        public string? location { get; set; }
+
+        [DataMember]
         public string? description { get; set; }
 
         // Constructor
@@ -29,11 +32,12 @@ namespace Models
             this.title = title;
         }
 
-        public Activity(string title, string group, DateTime dateTime, string? description)
+        public Activity(string title, string group, DateTime dateTime, string? location, string? description)
         {
             this.title = title;
             this.group = group;
             this.dateTime = dateTime;
+            this.location = location;
             this.description = description;
         }
 
@@ -44,6 +48,7 @@ namespace Models
             this.group = a.group == null ? this.group : a.group;
             this.dateTime = a.dateTime == new DateTime() ? this.dateTime : a.dateTime;
             this.description = a.description == null ? this.description : a.description;
+            this.location = a.location == null ? this.location : a.location;
         }
     }
 }
