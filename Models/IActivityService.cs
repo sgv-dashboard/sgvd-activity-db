@@ -33,5 +33,10 @@ namespace Models
 
         [OperationContract]
         public Activity deleteActivityFromId(int id);
+
+        // Update activities
+
+        [OperationContract]
+        public Activity updateActivityFromId(int id, Activity a);
     }
 }

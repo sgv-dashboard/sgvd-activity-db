@@ -15,10 +15,6 @@ namespace Models
         public Activity getActivityFromId(int id)
         {
             Activity activity = dbContext.Activities.Find(id);
-            if (activity == null)
-            {
-                activity = new Activity(id, "idNotFound");
-            }
             return activity;
         }
 
@@ -66,10 +62,26 @@ namespace Models
         public Activity deleteActivityFromId(int id)
         {
             Activity a = dbContext.Activities.Find(id);
-            dbContext.Activities.Remove(a);
-            dbContext.SaveChanges();
+            if (a != null)
+            {
+                dbContext.Activities.Remove(a);
+                dbContext.SaveChanges();
+            }
             return a;
         }
 
+        // Update activities
+
+        public Activity updateActivityFromId(int id, Activity a)
+        {
+            Activity activity = dbContext.Activities.Find(id);
+            if (activity != null)
+            {
+                activity.updateFrom(a);
+                dbContext.Activities.Update(activity);
+                dbContext.SaveChanges();
+            }
+            return activity;
+        }
     }
 }

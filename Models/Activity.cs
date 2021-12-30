@@ -14,7 +14,7 @@ namespace Models
         public string title { get; set; }
 
         [DataMember]
-        public string group { get; set; }
+        public string? group { get; set; }
 
         [DataMember]
         public DateTime dateTime { get; set; }
@@ -35,6 +35,15 @@ namespace Models
             this.group = group;
             this.dateTime = dateTime;
             this.description = description;
+        }
+
+        public void updateFrom(Activity a)
+        {
+            Console.WriteLine($"Update activity:\n\ttitle: {a.title}\n\tgroup: {a.group}\n\tdateTime: {a.dateTime}\n\tdescription: {a.description}\n\t");
+            this.title = a.title == null ? this.title : a.title;
+            this.group = a.group == null ? this.group : a.group;
+            this.dateTime = a.dateTime == new DateTime() ? this.dateTime : a.dateTime;
+            this.description = a.description == null ? this.description : a.description;
         }
     }
 }
