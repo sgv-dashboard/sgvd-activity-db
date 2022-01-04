@@ -40,23 +40,10 @@
     },
     {
       "type": "docker-build",
-      "label": "docker-build: debug",
-      "dependsOn": ["build"],
-      "dockerBuild": {
-        "tag": "sgvdactivitydb:dev",
-        "target": "base",
-        "dockerfile": "${workspaceFolder}/Dockerfile",
-        "context": "${workspaceFolder}",
-        "pull": true
-      },
-      "netCore": {
-        "appProject": "${workspaceFolder}/sgvd-activity-db.csproj"
-      }
-    },
-    {
-      "type": "docker-build",
       "label": "docker-build: release",
-      "dependsOn": ["build"],
+      "dependsOn": [
+        "build"
+      ],
       "dockerBuild": {
         "tag": "sgvdactivitydb:latest",
         "dockerfile": "${workspaceFolder}/Dockerfile",
@@ -69,22 +56,28 @@
     },
     {
       "type": "docker-run",
-      "label": "docker-run: debug",
-      "dependsOn": ["docker-build: debug"],
-      "dockerRun": {
-        "os": "Windows"
-      },
-      "netCore": {
-        "appProject": "${workspaceFolder}/sgvd-activity-db.csproj",
-        "enableDebugging": true
-      }
-    },
-    {
-      "type": "docker-run",
       "label": "docker-run: release",
-      "dependsOn": ["docker-build: release"],
+      "dependsOn": [
+        "docker-build: release"
+      ],
       "dockerRun": {
-        "os": "Windows"
+        "remove": true,
+        "image": "sgvdactivitydb:latest",
+        "os": "Windows",
+        "containerName": "sgvdactivitydb",
+        "ports": [
+          {
+            "containerPort": 7037,
+            "hostPort": 7037,
+            "protocol": "tcp"
+          }
+        ],
+        "volumes": [
+          {
+            "containerPath": "/db",
+            "localPath": "${workspaceFolder}/db"
+          }
+        ]
       },
       "netCore": {
         "appProject": "${workspaceFolder}/sgvd-activity-db.csproj"
