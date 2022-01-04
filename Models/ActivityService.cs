@@ -40,6 +40,12 @@ namespace Models
             return activities.ToList();
         }
 
+        public List<Activity> getActivitiesFromDate(DateTime date)
+        {
+            var activities = dbContext.Activities.Where(a => a.dateTime.Date >= date.Date);
+            return activities.ToList();
+        }
+
         public List<Activity> getActivitiesOfGroup(string group)
         {
             var activities = dbContext.Activities.Where(a => a.group == group);

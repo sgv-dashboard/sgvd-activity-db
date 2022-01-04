@@ -16,6 +16,9 @@ namespace Models
         public List<Activity> getActivitiesOnDate(DateTime date);
 
         [OperationContract]
+        public List<Activity> getActivitiesFromDate(DateTime date);
+
+        [OperationContract]
         public List<Activity> getActivities();
 
         [OperationContract]
